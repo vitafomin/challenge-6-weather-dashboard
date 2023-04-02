@@ -11,6 +11,7 @@ var previousHistory = $(".history");
 
 function getApi(event) {
   event.preventDefault();
+
   var requestUrl =
     "https://api.openweathermap.org/data/2.5/forecast?q=" +
     searchinput.val().trim() +
@@ -22,7 +23,7 @@ function getApi(event) {
     })
     .then(function (data) {
       var header = data.city.name + " " + today.children().eq(0).text();
-      today.children().eq(0).text(header);
+      today.children().eq(0).text(header) + img;
       var cityList = data.list;
 
       for (var i = 0; i < cityList.length; i = i + 8) {
@@ -33,20 +34,59 @@ function getApi(event) {
         var icon = cityList[i].weather[0].icon;
         console.log(icon);
 
-        $(".card-text-stuff").text(temp + " " + humidity + " " + windSpeed);
 
+
+       
+        
         var img = $("<img>").attr(
           "src",
           "https://openweathermap.org/img/wn/" + icon + "@2x.png"
         );
 
+        $(".card-body" + (i / 8 + 1)).append(img);
+
         if (i == 0) {
-          today.append(img);
+          $(".card-text-main").text("Temp: " + temp)
+          $(".card-text-main2").text("Humidity: " + humidity);
+          $(".card-text-main3").text("Wind Speed: " + windSpeed);
+          $(".day1-text-main1").text("Temp: " + temp)
+          $(".day1-text-main2").text("Humidity: " + humidity);
+          $(".day1-text-main3").text("Wind Speed: " + windSpeed);
+          
+          today.append(img.clone());
           day1.append(img);
-          continue;
         }
 
-        $(".card-body" + (i / 8 + 1)).append(img);
+        if (i == 8) {
+          $(".day2-text-main1").text("Temp: " + temp)
+          $(".day2-text-main2").text("Humidity: " + humidity);
+          $(".day2-text-main3").text("Wind Speed: " + windSpeed);
+
+        }
+
+        if (i == 16) {
+          $(".day3-text-main1").text("Temp: " + temp)
+          $(".day3-text-main2").text("Humidity: " + humidity);
+          $(".day3-text-main3").text("Wind Speed: " + windSpeed);
+        }
+
+        if (i == 24) {
+          $(".day4-text-main1").text("Temp: " + temp)
+          $(".day4-text-main2").text("Humidity: " + humidity);
+          $(".day4-text-main3").text("Wind Speed: " + windSpeed);
+        }
+
+        if (i === 32) {
+          $(".day5-text-main1").text("Temp: " + temp)
+          $(".day5-text-main2").text("Humidity: " + humidity);
+          $(".day5-text-main3").text("Wind Speed: " + windSpeed);
+        }
+
+        if (i == 40) {
+          $(".day4-text-main1").text("Temp: " + temp)
+          $(".day4-text-main2").text("Humidity: " + humidity);
+          $(".day4-text-main3").text("Wind Speed: " + windSpeed);
+        }
 
         console.log(cityList[i]);
       }
@@ -87,8 +127,9 @@ function history() {
     // var data = localStorage.key(i);
     // var savedData = localStorage.getItem(data);
 
-    var cityList = $("<p>");
+    var cityList = $("<button>").attr("id", "list");
     cityList.text(visitedArr[i]);
+    // cityList.on("click", getApi) --------->
 
     // we need to empty/clear our container
 
@@ -96,18 +137,9 @@ function history() {
   }
 }
 
+
 history();
 
-// function displayWeather(data) {
-//     console.log(data)
-//     // for (var i = 0; i < data.length; i=i+8){
-//         //     console.log(list.length)
-
-//         //     var todaytemp = list[i].main.temp
-//         //      console.log(todaytemp)
-
-//         //      }
-//     }
 
 today.children().eq(0).text(dayjs().format("MM/DD/YYYY"));
 day1.children().eq(0).text(dayjs().add(1, "day").format("MM/DD/YYYY"));
