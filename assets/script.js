@@ -9,6 +9,27 @@ var searchbtn = $(".search-btn");
 var cityContainer = $(".container-fluid");
 var previousHistory = $(".history");
 
+searchinput.on("click", function() {
+  $(".card-text-main").text("")
+  $(".card-text-main2").text("");
+  $(".card-text-main3").text("");
+  $(".day1-text-main1").text("")
+  $(".day1-text-main2").text("");
+  $(".day1-text-main3").text("")
+  $(".day2-text-main1").text("")
+  $(".day2-text-main2").text("");
+  $(".day2-text-main3").text("");
+  $(".day3-text-main1").text("")
+  $(".day3-text-main2").text("");
+  $(".day3-text-main3").text("");
+  $(".day4-text-main1").text("")
+  $(".day4-text-main2").text("");
+  $(".day4-text-main3").text("");
+  $(".day5-text-main1").text("")
+  $(".day5-text-main2").text("");
+  $(".day5-text-main3").text("");
+})
+
 function getApi(event) {
   event.preventDefault();
 
@@ -82,11 +103,11 @@ function getApi(event) {
           $(".day5-text-main3").text("Wind Speed: " + windSpeed);
         }
 
-        if (i == 40) {
-          $(".day4-text-main1").text("Temp: " + temp)
-          $(".day4-text-main2").text("Humidity: " + humidity);
-          $(".day4-text-main3").text("Wind Speed: " + windSpeed);
-        }
+        // if (i == 40) {
+        //   $(".day4-text-main1").text("Temp: " + temp)
+        //   $(".day4-text-main2").text("Humidity: " + humidity);
+        //   $(".day4-text-main3").text("Wind Speed: " + windSpeed);
+        // }
 
         console.log(cityList[i]);
       }
@@ -127,7 +148,7 @@ function history() {
     // var data = localStorage.key(i);
     // var savedData = localStorage.getItem(data);
 
-    var cityList = $("<button>").attr("id", "list");
+    var cityList = $("<button>").attr("class", "list");
     cityList.text(visitedArr[i]);
     // cityList.on("click", getApi) --------->
 

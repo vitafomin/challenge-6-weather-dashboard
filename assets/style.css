@@ -69,3 +69,9 @@ body {
     margin-left: 1130px; 
     margin-top: -290px; 
 }
+.list {
+    width: 100px;
+    height: 25px;
+    background-color: rgb(190, 199, 242);
+    border-radius: 8px;
+}
