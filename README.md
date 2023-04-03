@@ -14,6 +14,7 @@ N/A
 ## Usage
 This weather dashboard is for everyone! It is a great way for any user to check the weather for any city they desire. This may allow the user to plan ahead up to 5 days, whether it's activities, outfits, outdoorsy plans, etc. This assignment allowed me to present a useful tool for all my users, to check current and future weather conditions for any city they choose, and plan accordingly. 
 ![challenge-6-screenshot.png](./assets/challenge-6-screenshot.png)
+https://vitafomin.github.io/challenge-6-weather-dashboard/
 
 
 
