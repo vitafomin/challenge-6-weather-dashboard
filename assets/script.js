@@ -142,7 +142,7 @@ function history() {
       var city = cityList.text()
       console.log("---------" + city)
       
-      getApi(event, cityList.text(), false)
+      getApi(event, $(this).text(), false)
       
       
     

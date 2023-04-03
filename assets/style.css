@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(145, 149, 156);
+    background-color: rgb(200, 204, 210);
 }
 .pagehead {
     width: 100%;
@@ -9,7 +9,7 @@ body {
     font-family: Georgia, 'Times New Roman', Times, serif;
     text-align: center;
     padding-top: 30px;
-    background-color: rgb(73, 85, 108);
+    background-color: rgb(38, 53, 80);
     color: rgb(238, 238, 238);
 }
 .today-card {
@@ -74,4 +74,7 @@ body {
     height: 25px;
     background-color: rgb(190, 199, 242);
     border-radius: 8px;
+    margin: 5px;
+    cursor: pointer; 
+    font-weight: bold;
 }
