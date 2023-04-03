@@ -9,33 +9,13 @@ var searchbtn = $(".search-btn");
 var cityContainer = $(".container-fluid");
 var previousHistory = $(".history");
 
-searchinput.on("click", function() {
-  $(".card-text-main").text("")
-  $(".card-text-main2").text("");
-  $(".card-text-main3").text("");
-  $(".day1-text-main1").text("")
-  $(".day1-text-main2").text("");
-  $(".day1-text-main3").text("")
-  $(".day2-text-main1").text("")
-  $(".day2-text-main2").text("");
-  $(".day2-text-main3").text("");
-  $(".day3-text-main1").text("")
-  $(".day3-text-main2").text("");
-  $(".day3-text-main3").text("");
-  $(".day4-text-main1").text("")
-  $(".day4-text-main2").text("");
-  $(".day4-text-main3").text("");
-  $(".day5-text-main1").text("")
-  $(".day5-text-main2").text("");
-  $(".day5-text-main3").text("");
-})
 
-function getApi(event) {
+function getApi(event, city, willSave) {
   event.preventDefault();
 
   var requestUrl =
     "https://api.openweathermap.org/data/2.5/forecast?q=" +
-    searchinput.val().trim() +
+    city +
     "&appid=01c862e8225948b5e7389386a861c36a";
   console.log(requestUrl);
   fetch(requestUrl)
@@ -43,9 +23,11 @@ function getApi(event) {
       return response.json();
     })
     .then(function (data) {
-      var header = data.city.name + " " + today.children().eq(0).text();
-      today.children().eq(0).text(header) + img;
+      var header = data.city.name + " " + dayjs().format("MM/DD/YYYY");
+      today.children().eq(0).text(header);
       var cityList = data.list;
+
+      $("img").remove()
 
       for (var i = 0; i < cityList.length; i = i + 8) {
         var main = cityList[i].main;
@@ -65,6 +47,7 @@ function getApi(event) {
         );
 
         $(".card-body" + (i / 8 + 1)).append(img);
+
 
         if (i == 0) {
           $(".card-text-main").text("Temp: " + temp)
@@ -103,15 +86,10 @@ function getApi(event) {
           $(".day5-text-main3").text("Wind Speed: " + windSpeed);
         }
 
-        // if (i == 40) {
-        //   $(".day4-text-main1").text("Temp: " + temp)
-        //   $(".day4-text-main2").text("Humidity: " + humidity);
-        //   $(".day4-text-main3").text("Wind Speed: " + windSpeed);
-        // }
-
         console.log(cityList[i]);
       }
 
+      
       // if theres is data, go grab it
       var savedCities = localStorage.getItem("cities") || "[]";
       console.log("Saved : ", savedCities);
@@ -120,19 +98,27 @@ function getApi(event) {
       var cityArr = JSON.parse(savedCities);
       console.log("Parsed : ", cityArr);
       console.log("Type : ", typeof cityArr); // --> this is JS Object (Array)
-
+      
       // then we can Add data to it
       cityArr.push(searchinput.val().trim());
       console.log("New Array: ", cityArr);
       // We need to re-save the data
-      saveCity(JSON.stringify(cityArr));
+      if(willSave) {
+        saveCity(JSON.stringify(cityArr)); 
+      }
     });
 }
 
-searchbtn.on("click", getApi);
+searchbtn.on("click", function(event) {
+  getApi(event, searchinput.val().trim(), true)
+
+
+});
 
 function saveCity(data) {
   console.log(searchinput.val());
+
+
 
   //localStorage.setItem(searchinput.val(), data);
   localStorage.setItem("cities", data);
@@ -150,8 +136,19 @@ function history() {
 
     var cityList = $("<button>").attr("class", "list");
     cityList.text(visitedArr[i]);
-    // cityList.on("click", getApi) --------->
+    console.log("cityList: " + cityList.text())
 
+    cityList.on("click", function(event) {
+      var city = cityList.text()
+      console.log("---------" + city)
+      
+      getApi(event, cityList.text(), false)
+      
+      
+    
+    }) 
+
+    console.log(cityList)
     // we need to empty/clear our container
 
     previousHistory.append(cityList);
